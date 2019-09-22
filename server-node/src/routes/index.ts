@@ -1,6 +1,7 @@
 import * as Router from 'koa-router';
 
 // sub routes
+import { business } from "./business.route";
 
 class API {
   static routerInstance = new Router();
@@ -16,7 +17,7 @@ class API {
     });
 
     // sub routes
-
+    this.routerInstance.use('/business', business.routes(), business.allowedMethods());
     return this.routerInstance;
 
   }

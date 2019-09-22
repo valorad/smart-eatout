@@ -11,6 +11,7 @@ import * as cors from "@koa/cors";
 import { api } from './routes/index';
 
 import { ConfigLoader } from './utils/configLoader';
+import { DataBase } from "./database/index";
 
 const app = new Koa();
 
@@ -39,6 +40,9 @@ if (config) {
   
   app.use(router.routes())
   .use(router.allowedMethods());
+
+  const db = new DataBase();
+  db.connect();
   
   // const db = new DataBase();
   // db.connect();
