@@ -1,0 +1,50 @@
+{
+  "name": "smart-eatout-server",
+  "version": "1.0.0",
+  "description": "smart-eatout-server",
+  "main": "index.js",
+  "repository": "https://github.com/valorad/smart-eatout/tree/master/server-node",
+  "author": "valorad",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node dist/smartEatout",
+    "serve": "nodemon dist/smartEatout",
+    "build": "npm run build:prod || yarn run build:prod",
+    "build:dev": "cross-env NODE_ENV=development webpack",
+    "build:prod": "cross-env NODE_ENV=production webpack",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "koa": "^2.8.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^7.4.0",
+    "koa-send": "^5.0.0",
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.7.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/koa": "^2.0.49",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.0.42",
+    "@types/koa-send": "^4.1.2",
+    "@types/koa-static": "^4.0.1",
+    "@types/mongoose": "^5.5.17",
+    "@types/node": "^12.7.5",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "cross-env": "^6.0.0",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.2",
+    "ts-jest": "^24.1.0",
+    "ts-loader": "^6.1.2",
+    "typescript": "^3.6.3",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
