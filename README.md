@@ -1,2 +1,2 @@
 # smart-eatout
-Smart Eat-out. A project for the class Computing on Cloud
+Smart Eat-out. A project for the course Computing on Cloud
