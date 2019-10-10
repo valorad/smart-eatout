@@ -1,7 +1,6 @@
 import { model, Schema } from 'mongoose';
 
 import { IReview } from "../interface/reviews.interface";
-import { Int32 } from 'mongodb';
 
 const schema = new Schema({
   review_id: {
@@ -17,7 +16,7 @@ const schema = new Schema({
     required: true
   },
   stars: {
-    type: Int32,
+    type: Number,
     required: true
   },
   date: {

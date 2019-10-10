@@ -1,7 +1,6 @@
 import { model, Schema } from 'mongoose';
 
 import { IBusiness } from "../interface/business.interface";
-import { Int32 } from 'mongodb';
 
 const schema = new Schema({
 
@@ -46,7 +45,7 @@ const schema = new Schema({
   },
 
   stars: {
-    type: Int32,
+    type: Number,
     required: true
   },
 
@@ -56,7 +55,7 @@ const schema = new Schema({
   },
 
   is_open: {
-    type: Int32,
+    type: Number,
     required: true
   },
 
