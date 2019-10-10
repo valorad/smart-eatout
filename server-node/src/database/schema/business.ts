@@ -1,23 +1,138 @@
 import { model, Schema } from 'mongoose';
 
 import { IBusiness } from "../interface/business.interface";
+import { Int32 } from 'mongodb';
 
 const schema = new Schema({
+
+  business_id: {
+    type: String,
+    required: true
+  },
 
   name: {
     type: String,
     required: true
   },
 
-  stars: {
+  address: {
+    type: String,
+    required: true
+  },
+
+  city: {
+    type: String,
+    required: false
+  },
+
+  state: {
+    type: String,
+    required: false
+  },
+
+  postal_code: {
+    type: String,
+    required: true
+  },
+
+  latitude: {
     type: Number,
     required: true
   },
 
-  is_open: {
+  longitude: {
     type: Number,
     required: true
   },
+
+  stars: {
+    type: Int32,
+    required: true
+  },
+
+  review_count: {
+    type: Number,
+    required: false
+  },
+
+  is_open: {
+    type: Int32,
+    required: true
+  },
+
+  attributes: {
+    type: {
+      RestaurantsTakeOut: {
+        type: Boolean,
+        required: true
+      },
+      BusinessParking: {
+        type: {
+          garage: {
+            type: Boolean,
+            required: false
+          },
+          street: {
+            type: Boolean,
+            required: false
+          },
+          validated: {
+            type: Boolean,
+            required: false
+          },
+          lot: {
+            type: Boolean,
+            required: false
+          },
+          valet: {
+            type: Boolean,
+            required: false
+          },
+        },
+        required: true
+      },
+    },
+    required: true
+  },
+
+  categories: {
+    type: [String],
+    required: true
+  },
+
+  hours: {
+    type: {
+      Monday: {
+        type: String,
+        required: false
+      },
+      Tuesday: {
+        type: String,
+        required: false
+      },
+      Wednesday: {
+        type: String,
+        required: false
+      },
+      Thursday: {
+        type: String,
+        required: false
+      },
+      Friday: {
+        type: String,
+        required: false
+      },
+      Saturday: {
+        type: String,
+        required: false
+      },
+      Sunday: {
+        type: String,
+        required: false
+      },
+    },
+    required: true
+  }
 
 });
 
