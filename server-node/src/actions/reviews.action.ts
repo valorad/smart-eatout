@@ -29,5 +29,12 @@ export class ReviewsAction {
 
   };
 
+  getSingleByBID = async (bid = "") => {
+    return await Query.getDetail(reviews, {business_id: bid});
+  };
+
+
+
+
 
 }

@@ -11,14 +11,25 @@ class TopsRoute {
    */
   constructor() {
 
-    this.router.get('/', async (ctx) => {
-      ctx.body = this.action.getDetail();
+    // this.router.get('/', async (ctx) => {
+    //   ctx.body = this.action.getDetail();
+    // });
+
+    this.router.get('/:businessIDs', async (ctx) => {
+      
+      let businessIDs: string[] = ctx.params.businessIDs.split(",");
+      // remove empty strings
+      businessIDs = businessIDs.filter(ele => ele[0]);
+
+      
+      ctx.body = await this.action.getTop(businessIDs);
+      // ctx.body = businessIDs;
     });
 
-    this.router.post('/', async (ctx) => {
-      let res = await this.action.add();
-      ctx.body = res;
-    });
+    // this.router.post('/', async (ctx) => {
+    //   let res = await this.action.add();
+    //   ctx.body = res;
+    // });
 
   }
 

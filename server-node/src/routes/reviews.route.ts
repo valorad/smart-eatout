@@ -17,6 +17,10 @@ class ReviewsRoute {
       ctx.body = await this.query.getList(ctx.query);
     });
 
+    this.router.get('/bid/:bid', async (ctx) => {
+      ctx.body = await this.action.getSingleByBID(ctx.params.bid);
+    });
+
   }
 
 
