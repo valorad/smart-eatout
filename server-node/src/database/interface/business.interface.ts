@@ -23,6 +23,14 @@ interface IHours {
   Sunday?: string,
 }
 
+
+
+interface IGeoLocation {
+  type: string
+  coordinates: number[]
+}
+
+
 export interface IBusiness extends Document {
   business_id: string,
   name: string,
@@ -30,8 +38,7 @@ export interface IBusiness extends Document {
   city?: string,
   state?: string,
   postal_code: string,
-  latitude: number,
-  longitude: number,
+  location: IGeoLocation,
   stars: number,
   review_count?: number,
   is_open: 0 | 1, // integer, 0 or 1 for closed or open, respectively
