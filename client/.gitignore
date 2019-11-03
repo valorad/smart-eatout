@@ -107,4 +107,7 @@ dist
 *.lock
 package-*.json
 src/statics/**
+
+src/environments/secrets.json
+!*.example.*
 !.gitkeep

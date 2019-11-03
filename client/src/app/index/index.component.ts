@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
+  lat = 45.495514;
+  lng = -73.578199;
+
   constructor() { }
 
   ngOnInit() {
