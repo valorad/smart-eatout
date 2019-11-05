@@ -7,6 +7,14 @@
   flex-grow: 1;
 }
 
+.fluid {
+  max-width: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
 a {
   text-decoration: none;
   color: $primary;
@@ -15,4 +23,18 @@ a {
 a:hover {
   text-decoration: none;
   color: $primary-dark;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+picture {
+  display: block;
+}
+
+p {
+  margin: 0;
 }

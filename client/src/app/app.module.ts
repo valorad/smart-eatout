@@ -9,12 +9,14 @@ import { Http404Component } from './http404/http404.component';
 import { appRouter } from './app.router';
 
 import * as secrets from "../environments/secrets.json";
+import { BusinessListComponent } from './business-list/business-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
-    Http404Component
+    Http404Component,
+    BusinessListComponent
   ],
   imports: [
     BrowserModule,
