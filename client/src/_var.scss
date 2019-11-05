@@ -1,0 +1,14 @@
+$primary-dark:   #512DA8;
+$primary:        #673AB7;
+$primary-light:  #D1C4E9;
+$primary-text-fore:   #FFFFFF;
+$accent:         #448AFF;
+$primary-text-back:   #212121;
+$secondary-text: #757575;
+$divider:        #BDBDBD;
+
+%fCentered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

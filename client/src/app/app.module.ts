@@ -8,6 +8,8 @@ import { Http404Component } from './http404/http404.component';
 
 import { appRouter } from './app.router';
 
+import * as secrets from "../environments/secrets.json";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,7 @@ import { appRouter } from './app.router';
     BrowserModule,
 
     AgmCoreModule.forRoot({
-      apiKey: ''
+      apiKey: secrets.mapKey
     }),
 
     appRouter,

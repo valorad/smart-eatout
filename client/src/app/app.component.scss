@@ -1,15 +1,65 @@
-$titleF: 50;
+@import "src/var";
 
-.center {
-  text-align: center;
-}
-
-.title {
-  font-size: $titleF + px;
-}
-
-li {
+nav.app {
+  height: 6vh;
   display: flex;
-  padding: 0;
-  list-style-type: none;
+  background: $primary;
+  color: $primary-text-fore;
+
+  a {
+    color: $primary-text-fore;
+  }
+
+  i {
+    font-size: 2.5em;
+    @extend %fCentered;
+  }
+
+  header {
+    margin: 1em;
+    @extend %fCentered;
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .search {
+    @extend %fCentered;
+    .bar {
+      @extend %fCentered;
+    }
+    i.icon-search {
+      color: $primary-text-back;
+      position: relative;
+      left: 1.3em;
+      font-size: 1em;
+    }
+    i.icon-lightbulb {
+      font-size: 2em;
+      margin-left: 0.3em;
+      cursor: pointer;
+    }
+    input.bar {
+      padding-left: 1em;
+      width: 30vw;
+    }
+  }
+
+  footer {
+    display: flex;
+    margin: 0 1em;
+    i {
+      font-size: 2.5em;
+    }
+  }
+
+  .github {
+    @extend %fCentered;
+  }
+
+
+}
+
+main.app {
+  height: 94vh;
 }

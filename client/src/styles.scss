@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap-reboot.min.css";
+@import "//at.alicdn.com/t/font_1492579_muahtqm1ke.css";
+@import "src/var";
+
+.flexSpacer {
+  flex-grow: 1;
+}
+
+a {
+  text-decoration: none;
+  color: $primary;
+}
+
+a:hover {
+  text-decoration: none;
+  color: $primary-dark;
+}
