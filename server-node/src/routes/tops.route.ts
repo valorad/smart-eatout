@@ -1,10 +1,12 @@
 import * as Router from 'koa-router';
 
 import { TopsAction as Action } from "../actions/tops.action";
+import { DateForm } from '../utils/dateForm';
 
 class TopsRoute {
   router = new Router();
   action = new Action();
+  dateF = new DateForm();
 
   /**
    *
@@ -21,8 +23,15 @@ class TopsRoute {
       // remove empty strings
       businessIDs = businessIDs.filter(ele => ele[0]);
 
-      
-      ctx.body = await this.action.getTop(businessIDs);
+
+
+      let startDate: Date | undefined = new Date(ctx.query.startDate);
+      let endDate: Date | undefined = new Date(ctx.query.endDate);
+
+      if (!this.dateF.isDateValid(startDate)) { startDate = undefined; }
+      if (!this.dateF.isDateValid(endDate)) { endDate = undefined; }
+
+      ctx.body = await this.action.getTop(businessIDs, startDate, endDate);
       // ctx.body = businessIDs;
     });
 

@@ -1,10 +1,6 @@
 // import schemas
-import { tops } from '../database/schema/tops';
 import { reviews } from "../database/schema/reviews";
-import { ModelMapReduceOption } from 'mongoose';
-import { IBusiness } from '../database/interface/business.interface';
-import { ITop } from '../database/interface/tops.interface';
-import { Query } from '../utils/query';
+import { DateForm } from "../utils/dateForm";
 
 interface IGroupResult {
   _id: string, // is actually the business_id
@@ -13,6 +9,8 @@ interface IGroupResult {
 }
 
 export class TopsAction {
+
+  dateF = new DateForm();
 
   /**@deprecated */
   getDetail = (dateStart?: Date, dateEnd?: Date) => {
@@ -24,15 +22,15 @@ export class TopsAction {
   add = async (dateStart?: Date, dateEnd?: Date) => {
     // round to a day
     // if (dateStart) {
-    //   dateStart = this.roundDate(dateStart)
+    //   dateStart = this.dateF.round(dateStart)
     // } else {
     //   dateStart = new Date("2000-01-01");
     // }
 
     // if (dateEnd) {
-    //   dateEnd = this.roundDate(dateEnd)
+    //   dateEnd = this.dateF.round(dateEnd)
     // } else {
-    //   dateEnd = this.roundDate(new Date());
+    //   dateEnd = this.dateF.round(new Date());
     // }
     
     let results: IGroupResult[] = await reviews.aggregate([
@@ -71,12 +69,23 @@ export class TopsAction {
 
   }
 
-  getTop = async (businessIDs: string[]) => {
+  getTop = async (businessIDs: string[], startDate?: Date, endDate?: Date) => {
+
+    let filters = {
+      business_id: { $in: businessIDs },
+      date: {
+        $gte: (startDate? this.dateF.round(startDate): new Date("2000-01-01")),
+        $lte: (endDate? this.dateF.round(endDate): new Date())
+        // $lte: new Date().getTime()
+      }
+    }
 
     const results: IGroupResult[] = await reviews.aggregate([
-      { $match: { business_id: { $in: businessIDs } } },
-      // { $limit: 3 },
-      // { $skip: 0 },
+      
+      
+      { $match: filters },
+      // { $limit: 100000 },
+      { $skip: 0 },
       { $group: {_id: "$business_id", mongoID: {$first: "$_id"}, avgStars: {$avg: "$stars"} } },
       // { $sort: { avgStars: -1 } },
       // _id: means group by business_id
@@ -86,8 +95,6 @@ export class TopsAction {
 
   };
 
-  roundDate = (date: Date) => {
-    return new Date(`${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDate()}`);
-  }
+
 
 }
