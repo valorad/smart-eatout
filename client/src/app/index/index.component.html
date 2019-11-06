@@ -2,6 +2,15 @@
   <main class="index">
     
     <app-business-list></app-business-list>
+
+    <lib-tabs>
+      <lib-tab [tabTitle]="'Tab 1'">
+        Tab 1 content
+      </lib-tab>
+      <lib-tab tabTitle="Tab 2">
+        Tab 2 content
+      </lib-tab>
+    </lib-tabs>
     
     <!-- this creates a google map on the page with the given lat/lng from -->
     <!-- the component as the initial center of the map: -->

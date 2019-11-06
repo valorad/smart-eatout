@@ -5,11 +5,14 @@ import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { Http404Component } from './http404/http404.component';
+import { BusinessListComponent } from './business-list/business-list.component';
+
+import { LibModule } from './_lib/lib.module';
 
 import { appRouter } from './app.router';
 
 import * as secrets from "../environments/secrets.json";
-import { BusinessListComponent } from './business-list/business-list.component';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import { BusinessListComponent } from './business-list/business-list.component';
     AgmCoreModule.forRoot({
       apiKey: secrets.mapKey
     }),
+
+    LibModule,
 
     appRouter,
   ],
