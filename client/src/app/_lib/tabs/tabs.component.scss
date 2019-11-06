@@ -1,5 +1,29 @@
+@import "src/var";
+
 .tab-close {
   color: gray;
   text-align: right;
   cursor: pointer;
+}
+
+
+
+a {
+  color: $primary-text-back;
+}
+
+ul {
+  @extend %fCentered;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+li {
+  margin: 1em;
+}
+
+li.active {
+  a {
+    color: $primary;
+  }
 }
