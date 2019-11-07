@@ -80,7 +80,15 @@ You MUST create the database and the following collections MANUALLY before conne
     createdCol.ensureIndex( { _id : "hashed" } );
     sh.shardCollection( `smartEatout.${col}`, { "_id" : "hashed" } );
   }
-  > 
+
+  ```
+
+## Create Index
+
+  ``` javascript
+
+  > db.business.createIndex( { location : "2dsphere" } )
+  > db.reviews.createIndex( { date : -1 } )
 
   ```
 
