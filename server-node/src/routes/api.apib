@@ -1,0 +1,144 @@
+FORMAT: 1A
+HOST: http://localhost:3000/
+
+# smart-eatout
+The back-end of project Smart Eat-out. A project for the course Programming on Cloud.
+
+# Group Business
+
+The business routes
+
+## By Location [/api/business/location/{coordinates}{?range}]
+
+### Get business list by location [GET]
+
+Get business list based on the point coordinates provided. Default result limit is 100.
+
++ Parameters
+    + coordinates (required, string)
+        One pair of geo coordinate to start searching.
+        Provide the **longitude** first and then **latitude**. Seperate by comma.
+        E.g. -120.334455,40.996551
+
+    + range (optional, string)
+        The maximum distance from the given point to search, in meters. Defaults to 1000 meters.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "_id": "5d856d47cabbad9c4cbb46f1",
+                "business_id": "ISMk-CqQy4bYUqYB3nhoZA",
+                "name": "Rodd Wolff's Hair Productions",
+                "address": "2504 E Indian School Rd",
+                "city": "Phoenix",
+                "state": "AZ",
+                "postal_code": "85016",
+                "stars": 5,
+                "review_count": 3,
+                "is_open": 1,
+                "attributes": {
+                    "RestaurantsPriceRange2": "2",
+                    "BikeParking": "True",
+                    "BusinessAcceptsCreditCards": "False",
+                    "BusinessParking": "{'garage': False, 'street': True, 'validated': False, 'lot': True, 'valet': False}",
+                    "HairSpecializesIn": "{'straightperms': True, 'coloring': True, 'extensions': True, 'africanamerican': True, 'curly': True, 'kids': True, 'perms': True, 'asian': True}",
+                    "WheelchairAccessible": "True"
+                },
+                "categories": "Beauty & Spas, Hair Loss Centers, Wigs, Shopping, Hair Salons, Hair Extensions",
+                "hours": {
+                    "Tuesday": "10:0-18:0",
+                    "Wednesday": "10:0-18:0",
+                    "Thursday": "10:0-18:0",
+                    "Friday": "10:0-18:0",
+                    "Saturday": "11:0-16:0"
+                },
+                "location": {
+                    "type": "Point",
+                    "coordinates": [
+                        -112.0278527,
+                        33.4951028
+                    ],
+                    "distance": 17.83087220111478
+                }
+            },
+            {
+                "_id": "5d856d3dcabbad9c4cba176e",
+                "business_id": "j3NeXt2jzR_FX7Y-njRyEg",
+                "name": "Trails",
+                "address": "2501 E Indian School Rd",
+                "city": "Phoenix",
+                "state": "AZ",
+                "postal_code": "85016",
+                "stars": 3.5,
+                "review_count": 4,
+                "is_open": 0,
+                "attributes": {
+                    "BusinessParking": "{'garage': False, 'street': False, 'validated': False, 'lot': True, 'valet': False}",
+                    "BikeParking": "True",
+                    "BusinessAcceptsCreditCards": "True",
+                    "RestaurantsPriceRange2": "3"
+                },
+                "categories": "Tobacco Shops, Shopping",
+                "hours": {
+                    "Monday": "10:0-22:0",
+                    "Tuesday": "10:0-22:0",
+                    "Wednesday": "10:0-22:0",
+                    "Thursday": "10:0-22:0",
+                    "Friday": "10:0-22:0",
+                    "Saturday": "10:0-22:0",
+                    "Sunday": "11:0-19:0"
+                },
+                "location": {
+                    "type": "Point",
+                    "coordinates": [
+                        -112.0279947,
+                        33.4946043
+                    ],
+                    "distance": 44.05161471764104
+                }
+            },
+            {...}
+        ]
+
+# Group Top
+
+Get the top business list according to stars given in the reviews
+
+## By Buisiness IDs [/api/tops/{businessIDs}{?startDate}{?endDate}]
+
+### Get top list by IDs [GET]
+
+Get top list by IDs. Note that the final result may not include all the IDs provided.
+
++ Parameters
+    + businessIDs (required, string)
+        The business IDs involved to compete and generate the top results. Seperate by comma.
+        E.g. QXAEGFB4oINsVuTFxEYKFQ,-K4gAv8_vjx8-2BxkVeRkA,5JucpCfHZltJh5r1JabjDg
+
+    + startDate (optional, string)
+        The beginning of the search period. In a valid date string . e.g. 2019-01-01
+
+    + endDate (optional, string)
+        The end of the search period. In a valid date string . e.g. 2019-02-28
+        
+
++ Response 200 (application/json)
+
+        [
+            {
+                "_id": "5JucpCfHZltJh5r1JabjDg",
+                "mongoID": "5d868cd04e2cfb028e2d5e01",
+                "avgStars": 2.6666666666666665
+            },
+            {
+                "_id": "QXAEGFB4oINsVuTFxEYKFQ",
+                "mongoID": "5d868cd24e2cfb028e2e0c26",
+                "avgStars": 2.7666666666666666
+            },
+            {
+                "_id": "-K4gAv8_vjx8-2BxkVeRkA",
+                "mongoID": "5d868ccf4e2cfb028e2d2281",
+                "avgStars": 3
+            }
+        ]

@@ -1,2 +1,2 @@
 # smart-eatout node server
-Part of the server in the project Smart Eat-out
+The back-end of project Smart Eat-out. A project for the course Programming on Cloud.
