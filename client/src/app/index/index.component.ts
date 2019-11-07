@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Business } from '../_interfaces/business.interface';
+
+import { BusinessService } from '../_services/business.service';
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -7,12 +11,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
-  lat = 45.495514;
-  lng = -73.578199;
+  currentLocation = {
+    longitude: -73.578199,
+    latitude: 45.495514
+  }
 
-  constructor() { }
+  businessList: any[] = [];
+
+  constructor(
+    private businessService: BusinessService
+  ) { }
 
   ngOnInit() {
+    this.getBusinessList();
+    
+  }
+
+  getBusinessList = async () => {
+    this.businessList = await this.businessService.getListByLocation(this.currentLocation.longitude, this.currentLocation.latitude);
+    console.log(this.businessList);
   }
 
 }
