@@ -4,9 +4,288 @@ HOST: http://localhost:3000/
 # smart-eatout
 The back-end of project Smart Eat-out. A project for the course Programming on Cloud.
 
+# Group Users
+The users routes
+
+## By Condition [/api/users/{?query}{?_condition_}]
+
+Get user list by condition. 
+Returns the first 10 user objects if no query or _condition_ provided
+
+### Get user list by condition [GET]
+
++ Parameters
+    + query (optional, string)
+
+        Query object. Including Mongo query token and Mongo query options.
+
+        Front-end needs to first encode the json to string before calling this API.
+        e.g. in JavaScript, call `encodeURIComponent()`
+
+        You also need to convert a Date object to **Miliseconds** if you need to query date later than or earlier than.
+        e.g. in JavaScript, call `getTime()` on a Date object.
+
+        Query structure: 
+
+        ```
+            interface getListQuery {
+                q: any,
+                o: any
+            }
+        ```
+
+        For example: 
+
+        `?query=%7B%22q%22%3A%7B%22review_count%22%3A%7B%22%24gte%22%3A1000%7D%7D%2C%22o%22%3A%7B%22orderBy%22%3A%22useful%22%2C%22order%22%3A%22desc%22%7D%7D`
+        
+        which means
+
+        ```
+            {
+                "q": {
+                    "review_count": {
+                        "$gte": 1000
+                    }
+                },
+                "o": {
+                    "orderBy": "useful",
+                    "order": "desc"
+                }
+            }
+        ```
+
+        returns all the users that have given no less than 1000 reviews
+        , and order the result by "useful" field, in descend order
+
+
+    + _condition_ (optional, string)
+
+        The faster way to perform a query. Will be ignored if "query" parameter is provided.
+
+        _condition_ could be any string that acts as the key to the Mongo query token.
+        Does not support Mongo atomic operations (such as $gte, $lt, etc.)
+
+        For example:
+
+        `?name=Harald`
+
+        will be parsed to the following Mongo query token:
+
+        ```
+            {
+                "name": Harald
+            }
+        ```
+
+        and returns the single user called "Harald" but in an array.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "firends": ["caH_Pg46Jtm4pdOM-JoJyg, KJEiAkxBpXS7LeJL0M2Qrg, HaBr4yTlzaX7Xn8BceHThQ"],
+                "elite": [],
+                "_id": "5d868ea7b66f42a06f2969cf",
+                "user_id": "--2vR0DIsmQ6WfcSzKWigw",
+                "name": "Harald",
+                "review_count": 1350,
+                "yelping_since": "2012-11-27T19:19:33.000Z",
+                "useful": 154202,
+                "funny": 130207,
+                "cool": 148658,
+                "fans": 668,
+                "average_stars": 4.13,
+                "compliment_hot": 9761,
+                "compliment_more": 2577,
+                "compliment_profile": 2842,
+                "compliment_cute": 1232,
+                "compliment_list": 1050,
+                "compliment_note": 3919,
+                "compliment_plain": 17595,
+                "compliment_cool": 17639,
+                "compliment_funny": 17639,
+                "compliment_writer": 7368,
+                "compliment_photos": 25051
+            },
+            {
+                "firends": ["caH_Pg46Jtm4pdOM-JoJyg, KJEiAkxBpXS7LeJL0M2Qrg, HaBr4yTlzaX7Xn8BceHThQ"],
+                "elite": [],
+                "_id": "5d868e94b66f42a06f26fc5c",
+                "user_id": "JjXuiru1_ONzDkYVrHN0aw",
+                "name": "Richard",
+                "review_count": 1086,
+                "yelping_since": "2009-08-23T17:03:27.000Z",
+                "useful": 99162,
+                "funny": 77758,
+                "cool": 93938,
+                "fans": 1434,
+                "average_stars": 4.12,
+                "compliment_hot": 16245,
+                "compliment_more": 3637,
+                "compliment_profile": 5990,
+                "compliment_cute": 2829,
+                "compliment_list": 2332,
+                "compliment_note": 10139,
+                "compliment_plain": 52103,
+                "compliment_cool": 32266,
+                "compliment_funny": 32266,
+                "compliment_writer": 12128,
+                "compliment_photos": 44390
+            }
+        ]
+
 # Group Business
 
 The business routes
+
+## By Condition [/api/business/{?query}{?_condition_}]
+
+Get business list by condition. 
+Returns the first 10 business objects if no query or _condition_ provided
+
+### Get business list by condition [GET]
+
++ Parameters
+    + query (optional, string)
+
+        Query object. Including Mongo query token and Mongo query options.
+
+        Front-end needs to first encode the json to string before calling this API.
+        e.g. in JavaScript, call `encodeURIComponent()`
+
+        Query structure: 
+
+        ```
+            interface getListQuery {
+                q: any,
+                o: any
+            }
+        ```
+
+        For example: 
+
+        `?query=%7B%22q%22%3A%7B%22stars%22%3A%7B%22%24gte%22%3A2%7D%7D%2C%22o%22%3A%7B%22includes%22%3A%5B%22business_id%22%2C%22name%22%2C%22stars%22%5D%7D%7D`
+        
+        which means
+
+        ```
+            {
+                "q": {
+                    "stars": {
+                        "$gte": 2
+                    }
+                },
+                "o": {
+                    "includes": ["business_id","name","stars"]
+                }
+            }
+        ```
+
+        returns all the business with overall stars greater-than-or-equal-to 2
+        , and select only these 3 fields: "business_id","name","stars"
+
+
+    + _condition_ (optional, string)
+
+        The faster way to perform a query. Will be ignored if "query" parameter is provided.
+
+        _condition_ could be any string that acts as the key to the Mongo query token.
+        Does not support Mongo atomic operations (such as $gte, $lt, etc.)
+
+        For example:
+
+        `?is_open=1&city=Montreal`
+
+        will be parsed to the following Mongo query token:
+
+        ```
+            {
+                "is_open": 1,
+                "city": "Montreal"
+            }
+        ```
+
+        and returns all the opening stores in Montreal. Returns every field.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "categories": [
+                    "Active Life, Parks"
+                ],
+                "_id": "5d856d3bcabbad9c4cb9de88",
+                "business_id": "UrpvK6pAHaMQTsgI-op6qg",
+                "name": "Trenholme Park",
+                "address": "2525 Park Row Est",
+                "city": "Montreal",
+                "state": "QC",
+                "postal_code": "H4B 2H8",
+                "stars": 3.5,
+                "review_count": 4,
+                "is_open": 1,
+                "attributes": {
+                    "BikeParking": "True",
+                    "GoodForKids": "True",
+                    "BusinessParking": "{'garage': False, 'street': False, 'validated': False, 'lot': False, 'valet': False}"
+                },
+                "hours": {
+                    "Monday": "8:0-23:0",
+                    "Tuesday": "8:0-23:0",
+                    "Wednesday": "8:0-23:0",
+                    "Thursday": "8:0-23:0",
+                    "Friday": "8:0-23:0",
+                    "Saturday": "8:0-23:0",
+                    "Sunday": "8:0-23:0"
+                },
+                "location": {
+                    "type": "Point",
+                    "coordinates": [
+                        -73.631780924,
+                        45.4605995838
+                    ]
+                }
+            },
+
+            {
+                "categories": [
+                    "Men's Clothing, Department Stores, Fashion, Lingerie, Shopping, Accessories, Women's Clothing, Shoe Stores"
+                ],
+                "_id": "5d856d3ecabbad9c4cba3039",
+                "business_id": "8U5L98aNqFjPm9WAVX4lGg",
+                "name": "Holt Renfrew",
+                "address": "1300 Sherbrooke Street West",
+                "city": "Montreal",
+                "state": "QC",
+                "postal_code": "H3G 1H9",
+                "stars": 3,
+                "review_count": 21,
+                "is_open": 1,
+                "attributes": {
+                    "RestaurantsPriceRange2": "4",
+                    "BikeParking": "True",
+                    "BusinessParking": "{'garage': False, 'street': True, 'validated': False, 'lot': False, 'valet': False}"
+                },
+                "hours": {
+                    "Monday": "0:0-0:0",
+                    "Tuesday": "10:0-18:0",
+                    "Wednesday": "9:0-21:0",
+                    "Thursday": "9:0-22:0",
+                    "Friday": "9:0-22:0",
+                    "Saturday": "9:30-18:30",
+                    "Sunday": "10:0-17:0"
+                },
+                "location": {
+                    "type": "Point",
+                    "coordinates": [
+                        -73.578529,
+                        45.499329
+                    ]
+                }
+            }
+
+        ]
+
 
 ## By Location [/api/business/location/{coordinates}{?range}]
 
@@ -126,6 +405,11 @@ Get top list by IDs. Note that the final result may not include all the IDs prov
 
         [
             {
+                "_id": "-K4gAv8_vjx8-2BxkVeRkA",
+                "mongoID": "5d868ccf4e2cfb028e2d2281",
+                "avgStars": 3
+            },
+            {
                 "_id": "5JucpCfHZltJh5r1JabjDg",
                 "mongoID": "5d868cd04e2cfb028e2d5e01",
                 "avgStars": 2.6666666666666665
@@ -134,10 +418,5 @@ Get top list by IDs. Note that the final result may not include all the IDs prov
                 "_id": "QXAEGFB4oINsVuTFxEYKFQ",
                 "mongoID": "5d868cd24e2cfb028e2e0c26",
                 "avgStars": 2.7666666666666666
-            },
-            {
-                "_id": "-K4gAv8_vjx8-2BxkVeRkA",
-                "mongoID": "5d868ccf4e2cfb028e2d2281",
-                "avgStars": 3
             }
         ]

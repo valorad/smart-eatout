@@ -38,7 +38,7 @@ export class TopsAction {
       // { $limit: 3 },
       // { $skip: 0 },
       { $group: {_id: "$business_id", mongoID: {$first: "$_id"}, avgStars: {$avg: "$stars"} } },
-      // { $sort: { avgStars: -1 } },
+      { $sort: { avgStars: -1 } },
       // _id: means group by business_id
     ]).allowDiskUse(true);
 
