@@ -1,0 +1,26 @@
+{
+  "name": "smart-eatout-server",
+  "version": "1.0.0",
+  "description": "smart-eatout-server",
+  "main": "index.js",
+  "repository": "https://github.com/valorad/smart-eatout/tree/master/server-node",
+  "author": "valorad",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node smartEatout"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "koa": "^2.8.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^7.4.0",
+    "koa-send": "^5.0.0",
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.7.1"
+  },
+  "optionalDependencies": {
+    "saslprep": "^1.0.3"
+  }
+}
