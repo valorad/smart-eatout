@@ -12,9 +12,11 @@ DB of app Smart Eat-out
   ```
 
 - Put the key file under `common` folder, then set the owner & group to `999:999` and the permission to `400`
+- Comment out the `sharding` section on router mongos config.
 - Comment out the `replication` and `sharding` section on EACH config-server mongod config.
 - Run `docker-compose up -d`
 - Comment back the `replication` and `sharding` section on EACH config-server mongod config.
+- Comment back the `sharding` section on router mongos config.
 - Run `docker-compose restart`
 - Configure the config-server replica set
   - log in to one of the config server
@@ -27,22 +29,22 @@ DB of app Smart Eat-out
   - initialize the config replica set
 
   ``` javascript
-  > rs.initiate( { _id: "configReplSet", configsvr: true, members: [ { _id: 0, host: "172.22.0.101:27019" }, { _id: 1, host: "172.22.0.102:27019" }, { _id: 2, host: "172.22.0.103:27019" } ] } )
+  > rs.initiate( { _id: "configReplSet", configsvr: true, members: [ { _id: 0, host: "172.22.0.101:27017" }, { _id: 1, host: "172.22.0.102:27017" }, { _id: 2, host: "172.22.0.103:27017" } ] } )
   ```
 
-- Add shardings on master
-  - log in to the master server
+- Add shardings on router
+  - log in to the router server
 
   ``` shell
-  $ docker exec -it smtet-mongo-config1 bash
+  $ docker exec -it smtet-mongo-router bash
   $ mongo 172.22.0.100:27017 -u [adminName] -p [adminPassword] --authenticationDatabase admin
   ```
 
-  - add shardings to master
+  - add shardings to router
 
   ``` javascript
-  > sh.addShard( "172.22.0.104:27017" )
-  > sh.addShard( "172.22.0.105:27017" )
+  > sh.addShard( "172.22.0.110:27017" )
+  > sh.addShard( "172.22.0.111:27017" )
   ```
 
 
@@ -50,10 +52,10 @@ DB of app Smart Eat-out
 You MUST create the database and the following collections MANUALLY before connecting back-end with the DB cluster:
 `business`, `reviews`, `users`
 
-- Log into `smtet-mongo-master` container:
+- Log into `smtet-mongo-router` container:
 
   ``` shell
-  $ docker exec -it smtet-mongo-master bash
+  $ docker exec -it smtet-mongo-router bash
   ```
   
 - Connect to mongos
