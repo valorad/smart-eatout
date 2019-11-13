@@ -11,6 +11,18 @@ export class BusinessListComponent implements OnInit {
 
   filteredBList = [];
 
+  private _searchTerm = "";
+
+  get searchTerm() {
+    return this._searchTerm;
+  }
+
+  set searchTerm(value: string) {
+    this._searchTerm = value;
+    this.pipe();
+    this.setNextBList();
+  }
+
   @Input()
   set bList(nextList: any[]) {
     this._bList = nextList;
@@ -22,10 +34,20 @@ export class BusinessListComponent implements OnInit {
   @Output() nextBList = new EventEmitter<any[]>();
 
   setNextBList = () => {
-    // TODO:
-    this.filteredBList = this._bList.slice(0, 1);
     this.nextBList.emit(this.filteredBList)
     return this.filteredBList;
+  };
+
+  pipe = () => {
+    this.filteredBList = this.filterByNameOrTag(this.searchTerm);
+  };
+
+  filterByNameOrTag = (token: string) => {
+    return this.bList.filter(
+      (business) => {
+        return ( business.name.toLowerCase().includes(token.toLowerCase()) || business.categories.toLowerCase().includes(token.toLowerCase()) )
+      }
+    );
   };
 
   constructor() { }

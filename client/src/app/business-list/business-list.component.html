@@ -3,7 +3,7 @@
     <main class="search">
       <section class="bar">
         <i class="iconfont icon-search"></i>  
-        <input class="bar" type="text" maxlength="30" placeholder="Type to search" (keypress)="setNextBList()">
+        <input class="bar" type="text" maxlength="30" placeholder="Type to search" [(ngModel)]="searchTerm">
       </section>
     </main>
   </header>
