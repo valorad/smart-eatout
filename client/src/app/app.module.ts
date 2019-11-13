@@ -13,6 +13,7 @@ import { LibModule } from './_lib/lib.module';
 import { appRouter } from './app.router';
 
 import * as secrets from "../environments/secrets.json";
+import { TopComponent } from './top/top.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import * as secrets from "../environments/secrets.json";
     AppComponent,
     IndexComponent,
     Http404Component,
-    BusinessListComponent
+    BusinessListComponent,
+    TopComponent
   ],
   imports: [
     BrowserModule,

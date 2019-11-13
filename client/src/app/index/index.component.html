@@ -2,12 +2,12 @@
   <main class="index">
     
     <section class="panel">
-      <lib-tabs>
-        <lib-tab tabTitle="<i class='iconfont icon-search'></i> Search">
-          <app-business-list [bList]="businessList" (nextBList)="setNewMarkers($event)"></app-business-list>
+      <lib-tabs (nextTab)="switchMapView($event)">
+        <lib-tab tabName="search" tabTitle="<i class='iconfont icon-search'></i> Search">
+          <app-business-list [bList]="businessList" (nextBList)="setNextSearchResult($event)"></app-business-list>
         </lib-tab>
-        <lib-tab tabTitle="Top">
-          Top
+        <lib-tab tabName="top" tabTitle="Top">
+          <app-top></app-top>
         </lib-tab>
         <lib-tab tabTitle="<i class='iconfont icon-lightbulb'></i> Suggest">
           <section class="suggestion">

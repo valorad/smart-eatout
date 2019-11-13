@@ -26,6 +26,11 @@ export class IndexComponent implements OnInit {
 
   businessShowOnMap: Business[] = [];
 
+  businessResults = {
+    search: [],
+    top: []
+  }
+
   constructor(
     private businessService: BusinessService
   ) { }
@@ -39,13 +44,25 @@ export class IndexComponent implements OnInit {
     this.businessList = await this.businessService.getListByLocation(this.currentMapView.longitude, this.currentMapView.latitude);
   }
 
-  setNewMarkers = (newList: Business[]) => {
-    this.businessShowOnMap = newList;
-    // move to first marker
-    if (newList.length > 0) {
-      let position = newList[0].location.coordinates;
-      this.setCurrentMapView(position[0], position[1], 16)
+  setNextSearchResult = (newList: Business[]) => {
+    this.setBusinessResult("search", newList);
+  }
+
+  setBusinessResult = (key: string, newList: Business[]) => {
+    this.businessResults[key] = newList;
+    this.switchMapView(key);
+  };
+
+  switchMapView = (key: string) => {
+    if (this.businessResults[key]) {
+      this.businessShowOnMap = this.businessResults[key];
+      // move to first marker
+      if (this.businessShowOnMap.length > 0) {
+        let position = this.businessShowOnMap[0].location.coordinates;
+        this.setCurrentMapView(position[0], position[1], 16)
+      }
     }
+    
   }
 
   setCurrentMapView = (longitude: number, latitude: number, zoom=8) => {
