@@ -9,6 +9,9 @@
   </header>
   <main class="businessList">
     <ul>
+      <li *ngIf="searchTerm.length > 0 && filteredBList.length <= 0" class="business">
+        <article class="centered"> No results </article>
+      </li>
       <li *ngFor="let business of filteredBList" class="business">
         <article>
           <div class="avatar">
@@ -23,13 +26,12 @@
             <div class="tags">
               <h3>tags:</h3>
               <ul>
-                <li>{{ business.categories }}</li>
+                <li [title]="business.categories">{{ business.categories }}</li>
               </ul>
             </div> 
           </div>
         </article>
       </li>
-
     </ul>
   </main>
 </section>

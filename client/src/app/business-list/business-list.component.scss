@@ -43,6 +43,10 @@ main.businessList {
     padding: 1em;
   }
 
+  .centered {
+    @extend %fCentered;
+  }
+
   h2 {
     color: $primary;
     margin: 0;

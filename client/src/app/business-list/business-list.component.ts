@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Business } from '../_interfaces/business.interface';
 
 @Component({
   selector: 'app-business-list',
@@ -24,14 +25,14 @@ export class BusinessListComponent implements OnInit {
   }
 
   @Input()
-  set bList(nextList: any[]) {
+  set bList(nextList: Business[]) {
     this._bList = nextList;
   }
   get bList() {
     return this._bList;
   }
 
-  @Output() nextBList = new EventEmitter<any[]>();
+  @Output() nextBList = new EventEmitter<Business[]>();
 
   setNextBList = () => {
     this.nextBList.emit(this.filteredBList)
@@ -43,6 +44,7 @@ export class BusinessListComponent implements OnInit {
   };
 
   filterByNameOrTag = (token: string) => {
+
     return this.bList.filter(
       (business) => {
         return ( business.name.toLowerCase().includes(token.toLowerCase()) || business.categories.toLowerCase().includes(token.toLowerCase()) )
