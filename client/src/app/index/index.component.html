@@ -15,19 +15,31 @@
           </section>
         </lib-tab>
 
-
-
       </lib-tabs>
     </section>
 
     <!-- this creates a google map on the page with the given lat/lng from -->
     <!-- the component as the initial center of the map: -->
     <agm-map
-     [latitude]="currentLocation.latitude"
-     [longitude]="currentLocation.longitude"
-     [zoom]="currentLocation.zoom"
+     [latitude]="currentMapView.latitude"
+     [longitude]="currentMapView.longitude"
+     [zoom]="currentMapView.zoom"
      [streetViewControl]="false"
     >
+    <agm-marker
+     [latitude]="currentLocation.coords.latitude"
+     [longitude]="currentLocation.coords.longitude"
+     [iconUrl] ="
+      {
+        url: '../../assets/images/position.svg',
+        scaledSize: {
+          width: 40,
+          height: 60
+        }
+      }"
+
+    ></agm-marker>
+
     <agm-marker
      *ngFor="let business of businessShowOnMap"
      [latitude]="business.location.coordinates[1]"

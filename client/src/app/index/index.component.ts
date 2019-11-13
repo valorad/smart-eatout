@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Business } from '../_interfaces/business.interface';
 
 import { BusinessService } from '../_services/business.service';
-import { LatLngLiteral } from '@agm/core';
 
 @Component({
   selector: 'app-index',
@@ -12,44 +11,59 @@ import { LatLngLiteral } from '@agm/core';
 })
 export class IndexComponent implements OnInit {
 
-  currentLocation = {
+  currentMapView = {
     longitude: -73.578199,
     latitude: 45.495514,
-    zoom: 8
+    zoom: 4
   }
 
-  businessList: any[] = [];
+  currentLocation = {
+    coords: {},
+    timestamp: 0
+  } as Position;
 
-  businessShowOnMap: any[] = [];
+  businessList: Business[] = [];
+
+  businessShowOnMap: Business[] = [];
 
   constructor(
     private businessService: BusinessService
   ) { }
 
   ngOnInit() {
+    this.getCurrentLocation();
     this.getBusinessList();
   }
 
   getBusinessList = async () => {
-    this.businessList = await this.businessService.getListByLocation(this.currentLocation.longitude, this.currentLocation.latitude);
+    this.businessList = await this.businessService.getListByLocation(this.currentMapView.longitude, this.currentMapView.latitude);
   }
 
-  setNewMarkers = (newList: any[]) => {
+  setNewMarkers = (newList: Business[]) => {
     this.businessShowOnMap = newList;
     // move to first marker
     if (newList.length > 0) {
       let position = newList[0].location.coordinates;
-      this.setCurrentLocation(position[0], position[1], 16)
+      this.setCurrentMapView(position[0], position[1], 16)
     }
   }
 
-  setCurrentLocation = (longitude: number, latitude: number, zoom=8) => {
-    this.currentLocation = {
-      ...this.currentLocation,
+  setCurrentMapView = (longitude: number, latitude: number, zoom=8) => {
+    this.currentMapView = {
+      ...this.currentMapView,
       longitude,
       latitude,
-      zoom: 16
+      zoom,
     }
+  };
+
+  getCurrentLocation = () => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      this.currentLocation = pos;
+      this.currentMapView.latitude = pos.coords.latitude;
+      this.currentMapView.longitude = pos.coords.longitude;
+      this.currentMapView.zoom = 12;
+    });
   };
 
 }

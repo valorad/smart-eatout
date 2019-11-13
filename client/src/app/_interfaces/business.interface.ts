@@ -22,8 +22,9 @@ interface IHours {
 }
 
 interface IGeoLocation {
-  type: string
-  coordinates: number[]
+  type: string,
+  coordinates: number[],
+  distance?: number,
 }
 
 export interface Business {
@@ -38,7 +39,7 @@ export interface Business {
   stars: number,
   review_count?: number,
   is_open: 0 | 1, // integer, 0 or 1 for closed or open, respectively
-  attributes: IBusinessAttribute,
-  categories: string[],
+  attributes?: IBusinessAttribute,
+  categories: string,
   hours: IHours
 }

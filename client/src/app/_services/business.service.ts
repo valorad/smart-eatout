@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 
+import { Business } from '../_interfaces/business.interface';
+
 @Injectable({
   providedIn: 'root'
 })
 export class BusinessService {
 
   getListByLocation = async (longitude: number, latitude: number, range?: number) => {
-    const list = [
+    const list: Business[] = [
       {
         "_id": "5d856d47cabbad9c4cbb46f1",
         "business_id": "ISMk-CqQy4bYUqYB3nhoZA",
@@ -18,14 +20,7 @@ export class BusinessService {
         "stars": 5,
         "review_count": 3,
         "is_open": 1,
-        "attributes": {
-            "RestaurantsPriceRange2": "2",
-            "BikeParking": "True",
-            "BusinessAcceptsCreditCards": "False",
-            "BusinessParking": "{'garage': False, 'street': True, 'validated': False, 'lot': True, 'valet': False}",
-            "HairSpecializesIn": "{'straightperms': True, 'coloring': True, 'extensions': True, 'africanamerican': True, 'curly': True, 'kids': True, 'perms': True, 'asian': True}",
-            "WheelchairAccessible": "True"
-        },
+
         "categories": "Beauty & Spas, Hair Loss Centers, Wigs, Shopping, Hair Salons, Hair Extensions",
         "hours": {
             "Tuesday": "10:0-18:0",
@@ -54,12 +49,6 @@ export class BusinessService {
           "stars": 3.5,
           "review_count": 4,
           "is_open": 0,
-          "attributes": {
-              "BusinessParking": "{'garage': False, 'street': False, 'validated': False, 'lot': True, 'valet': False}",
-              "BikeParking": "True",
-              "BusinessAcceptsCreditCards": "True",
-              "RestaurantsPriceRange2": "3"
-          },
           "categories": "Tobacco Shops, Shopping",
           "hours": {
               "Monday": "10:0-22:0",
@@ -90,12 +79,6 @@ export class BusinessService {
           "stars": 3.5,
           "review_count": 4,
           "is_open": 0,
-          "attributes": {
-              "BusinessParking": "{'garage': False, 'street': False, 'validated': False, 'lot': True, 'valet': False}",
-              "BikeParking": "True",
-              "BusinessAcceptsCreditCards": "True",
-              "RestaurantsPriceRange2": "3"
-          },
           "categories": "Tobacco Shops, Shopping",
           "hours": {
               "Monday": "10:0-22:0",
