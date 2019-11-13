@@ -1,0 +1,36 @@
+<section class="top">
+  <header class="top">
+    <ul>
+      <li
+       *ngFor="let mode of modes"
+       [class.active]="currentMode===mode.name"
+       (click)="selectMode(mode.name)"
+      >
+        <a href="##">{{ mode.nameDisplay }}</a>
+      </li>
+    </ul>
+  </header>
+
+
+  <main class="top">
+    <ul>
+      <li class="topList">
+        <article>
+          1 bbb
+        </article>
+      </li>
+      <li class="topList">
+        <article>
+          2 bbb
+        </article>
+      </li>
+      <li class="topList">
+        <article>
+          3 bbb
+        </article>
+      </li>
+    </ul>
+  </main>
+
+
+</section>
