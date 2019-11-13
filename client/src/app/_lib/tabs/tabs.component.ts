@@ -8,6 +8,8 @@ import {
   ContentChildren,
   QueryList,
   AfterContentInit,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 
 import { TabComponent } from './tab.component';
@@ -18,6 +20,9 @@ import { TabComponent } from './tab.component';
   styleUrls: ["./tabs.component.scss"]
 })
 export class TabsComponent implements AfterContentInit {
+
+  @Output() nextTab = new EventEmitter<string>();
+
   
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
   
@@ -38,5 +43,8 @@ export class TabsComponent implements AfterContentInit {
     
     // activate the tab the user has clicked on.
     tab.active = true;
+
+    // emit tab name selected
+    this.nextTab.emit(tab.name)
   }
 }
