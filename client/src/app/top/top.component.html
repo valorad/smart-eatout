@@ -14,24 +14,24 @@
 
   <main class="top">
     <ul>
-      <li class="topList">
+      <li *ngFor="let top of businessTops; index as i;" class="topList">
         <article>
           <header class="rank">
-            <div class="circle"><h1>1</h1></div>
+            <div class="circle"><h1>{{ i + 1 }}</h1></div>
           </header>
           <div class="avatar">
             <picture>
-              ava
+              <i class="iconfont icon-restaurant"></i>
             </picture>
           </div>
           <div class="info">
-            <h2>PFC</h2>
-            <p>rate: <span>1.5</span> stars</p>
-            <p>distance: <span>100</span>m </p>
+            <h2 [title]="top.name">{{ top.name }}</h2>
+            <p>rate: <span>{{ top.stars }}</span> stars</p>
+            <p>distance: <span>{{ top.location.distance | number:'1.3' }}</span>m </p>
             <div class="tags">
               <h3>tags:</h3>
               <ul>
-                <li>sandwitch patato</li>
+                <li [title]="top.categories">{{ top.categories }}</li>
               </ul>
             </div> 
           </div>

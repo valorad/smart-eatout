@@ -28,6 +28,7 @@ header.top {
 main.top {
   display: flex;
   max-height: 80vh;
+  overflow-x: hidden;
   overflow-y: auto;
   ul {
     flex-grow: 1;
@@ -64,14 +65,18 @@ main.top {
   }
 
   .avatar {
-    margin: 0.5em;
     @extend %fCentered;
+    margin: 0.5em;
   }
 
   picture {
-    border: 1px solid  red;
+    @extend %fCentered;
     width: 5em;
     height: 5em;
+    i {
+      color: $primary;
+      font-size: 4em;
+    }
   }
 
   h2 {

@@ -7,7 +7,7 @@
           <app-business-list [bList]="businessList" (nextBList)="setNextSearchResult($event)"></app-business-list>
         </lib-tab>
         <lib-tab tabName="top" tabTitle="Top">
-          <app-top></app-top>
+          <app-top [bList]="businessList"></app-top>
         </lib-tab>
         <lib-tab tabTitle="<i class='iconfont icon-lightbulb'></i> Suggest">
           <section class="suggestion">
