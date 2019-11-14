@@ -46,7 +46,7 @@ export class BusinessService {
           "city": "Phoenix",
           "state": "AZ",
           "postal_code": "85016",
-          "stars": 3.5,
+          "stars": 1.125,
           "review_count": 4,
           "is_open": 0,
           "categories": "Tobacco Shops, Shopping",
