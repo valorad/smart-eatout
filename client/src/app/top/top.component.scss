@@ -44,4 +44,70 @@ main.top {
     height: 9em;
     padding: 1em;
   }
+
+  .rank {
+
+    @extend %fCentered;
+
+    .circle {
+      @extend %fCentered;
+      width: 2em;
+      height: 2em;
+      background-color: $primary;
+      color: $primary-text-fore;
+    }
+
+    h1 {
+      font-size: 1em;
+      margin: 0;
+    }
+  }
+
+  .avatar {
+    margin: 0.5em;
+    @extend %fCentered;
+  }
+
+  picture {
+    border: 1px solid  red;
+    width: 5em;
+    height: 5em;
+  }
+
+  h2 {
+    color: $primary;
+    margin: 0;
+    max-width: 13em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .info {
+    flex-grow: 1;
+  }
+
+  
+
+  .tags {
+    display: flex;
+    h3 {
+      margin: 0 0.5em 0 0;
+      font-weight: unset;
+      font-size: 16px;
+    }
+
+    ul {
+      display: flex;
+      flex-grow: 0;
+      max-width: 15em;
+    }
+    li {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-right: 0.3em;
+    }
+  }
+
 }
