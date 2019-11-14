@@ -34,9 +34,9 @@ if (config) {
   // root route and sub route settings
   
   router.use('/api', api.routes(), api.allowedMethods())
-  // router.get('/', async (ctx) => {
-  //   await send(ctx, join(clientPath, 'index.html'), { root: '/' });
-  // });
+  router.get('/', async (ctx) => {
+    await send(ctx, join(clientPath, 'index.html'), { root: '/' });
+  });
   
   app.use(router.routes())
   .use(router.allowedMethods());
