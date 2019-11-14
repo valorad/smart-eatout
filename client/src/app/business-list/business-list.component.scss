@@ -62,9 +62,13 @@ main.businessList {
   }
 
   picture {
-    border: 1px solid  red;
+    @extend %fCentered;
     width: 5em;
     height: 5em;
+    i {
+      color: $primary;
+      font-size: 4em;
+    }
   }
 
   .info {
