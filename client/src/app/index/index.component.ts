@@ -60,7 +60,7 @@ export class IndexComponent implements OnInit {
     let bList = newList.slice(0);
     // set label
     for (let i = 0; i < bList.length; i++) {
-      bList[i].label = i.toString();
+      bList[i].label = (i + 1).toString();
     }
     
     this.setBusinessResult("top", bList, false);

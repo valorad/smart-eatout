@@ -1,10 +1,17 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+import { TopService } from '../_services/top.service';
+
 import { Business } from '../_interfaces/business.interface';
 
-interface BusinessTops {
+
+interface BusinessTopResults {
   allTime: Business[],
   recent: Business[],
+}
+
+interface TopBusiness extends Business {
+  avgStars: number,
 }
 
 @Component({
@@ -16,9 +23,9 @@ export class TopComponent {
 
   private _bList = [];
 
-  bListThrottled = [];
+  bListThrottled: Business[] = [];
 
-  businessTops: BusinessTops = {
+  businessTops: BusinessTopResults = {
     allTime: [],
     recent: [],
   }
@@ -30,7 +37,7 @@ export class TopComponent {
     },
     {
       name: "recent",
-      nameDisplay: "Recent Weeks"
+      nameDisplay: "Recent 4 Weeks"
     }
   ]
 
@@ -48,20 +55,20 @@ export class TopComponent {
 
   @Output() nextTop = new EventEmitter<Business[]>();
 
-  selectMode = (nextMode: string) => {
+  selectMode = async (nextMode: string) => {
     this.currentMode = nextMode;
     switch (nextMode) {
       case "allTime":
         this.getAllTimeTops(10);
-        this.nextTop.emit(this.businessTops[nextMode])
         break;
       case "recent":
-        console.log("Get Recent");
+        await this.getRecentTops(10);
         break;
       default:
         console.log(`invalid mode ${nextMode}`);
         break;
     }
+    this.nextTop.emit(this.businessTops[nextMode] || [])
   };
 
   throttleBusiness = (num: number) => {
@@ -75,6 +82,40 @@ export class TopComponent {
     this.businessTops.allTime = this.bListThrottled.slice(0, top);
   };
 
+  extractBIDs = () => {
+    let bids: string[] = [];
+    for (let business of this.bListThrottled) {
+      bids.push(business.business_id);
+    }
+    return bids;
+  };
+
+  getRecentTops = async (top: number) => {
+    let startDate = new Date("2018-11-01");
+    let endDate = new Date("2018-12-01");
+    console.log(this.extractBIDs());
+    let topResults = await this.topService.getTop(this.extractBIDs(), startDate, endDate);
+
+    // insert the avg star info to the complete corresponding business data
+    let topBusiness: TopBusiness[] = [];
+    for (let top of topResults) {
+      let business = this.bListThrottled.find((business) => {
+        return business.business_id === top._id;
+      }) as TopBusiness;
+
+      business.avgStars = top.avgStars;
+
+      topBusiness.push(business);
+    }
+
+    topBusiness.sort( (businessA, businessB) => {
+      return businessB.avgStars - businessA.avgStars
+    });
+    
+    this.businessTops.recent = topBusiness.slice(0, top);
+
+  };
+
   cloneJSONArray = (arr: any[]) => {
     let newArr: any[] = [];
     for (let obj of arr) {
@@ -84,6 +125,8 @@ export class TopComponent {
     return newArr;
   };
 
-  constructor() { }
+  constructor(
+    private topService: TopService
+  ) { }
 
 }
