@@ -43,9 +43,6 @@ if (config) {
 
   const db = new DataBase();
   db.connect();
-  
-  // const db = new DataBase();
-  // db.connect();
 
   // listen
   app.listen(port, () => {

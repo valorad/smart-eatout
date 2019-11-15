@@ -1,6 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Business } from '../_interfaces/business.interface';
+
+interface BusinessTops {
+  allTime: Business[],
+  recent: Business[],
+}
 
 @Component({
   selector: 'app-top',
@@ -13,7 +18,10 @@ export class TopComponent {
 
   bListThrottled = [];
 
-  businessTops: Business[] = [];
+  businessTops: BusinessTops = {
+    allTime: [],
+    recent: [],
+  }
 
   modes = [
     {
@@ -30,16 +38,30 @@ export class TopComponent {
 
   @Input()
   set bList(nextList: Business[]) {
-    this._bList = nextList;
+    this._bList = this.cloneJSONArray(nextList);
     this.bListThrottled = this.throttleBusiness(20);
-    this.getAllTimeTops(10);
+    this.selectMode("allTime");
   }
   get bList() {
     return this._bList;
   }
 
+  @Output() nextTop = new EventEmitter<Business[]>();
+
   selectMode = (nextMode: string) => {
     this.currentMode = nextMode;
+    switch (nextMode) {
+      case "allTime":
+        this.getAllTimeTops(10);
+        this.nextTop.emit(this.businessTops[nextMode])
+        break;
+      case "recent":
+        console.log("Get Recent");
+        break;
+      default:
+        console.log(`invalid mode ${nextMode}`);
+        break;
+    }
   };
 
   throttleBusiness = (num: number) => {
@@ -50,7 +72,16 @@ export class TopComponent {
     this.bListThrottled.sort( (businessA, businessB) => {
       return businessB.stars - businessA.stars
     } );
-    this.businessTops = this.bListThrottled.slice(0, top);
+    this.businessTops.allTime = this.bListThrottled.slice(0, top);
+  };
+
+  cloneJSONArray = (arr: any[]) => {
+    let newArr: any[] = [];
+    for (let obj of arr) {
+      let newObj = Object.assign({}, obj);
+      newArr.push(newObj);
+    }
+    return newArr;
   };
 
   constructor() { }

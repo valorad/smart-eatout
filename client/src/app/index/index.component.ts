@@ -45,17 +45,38 @@ export class IndexComponent implements OnInit {
   }
 
   setNextSearchResult = (newList: Business[]) => {
-    this.setBusinessResult("search", newList);
+    
+    let blist = newList.slice(0);
+    // set label
+    for (let business of blist) {
+      business.label = business.name[0];
+    }
+    
+    this.setBusinessResult("search", blist);
   }
 
-  setBusinessResult = (key: string, newList: Business[]) => {
-    this.businessResults[key] = newList;
-    this.switchMapView(key);
+  setNextTopResult = (newList: Business[]) => {
+    
+    let bList = newList.slice(0);
+    // set label
+    for (let i = 0; i < bList.length; i++) {
+      bList[i].label = i.toString();
+    }
+    
+    this.setBusinessResult("top", bList, false);
+  }
+
+  setBusinessResult = (key: string, newList: Business[], showOnMap = true) => {
+    this.businessResults[key] = newList.slice(0);
+    if (showOnMap) {
+      this.switchMapView(key);
+    }
   };
 
   switchMapView = (key: string) => {
+
     if (this.businessResults[key]) {
-      this.businessShowOnMap = this.businessResults[key];
+      this.businessShowOnMap = this.businessResults[key].slice(0);
       // move to first marker
       if (this.businessShowOnMap.length > 0) {
         let position = this.businessShowOnMap[0].location.coordinates;
@@ -81,6 +102,7 @@ export class IndexComponent implements OnInit {
       this.currentMapView.longitude = pos.coords.longitude;
       this.currentMapView.zoom = 12;
     });
+    
   };
 
 }

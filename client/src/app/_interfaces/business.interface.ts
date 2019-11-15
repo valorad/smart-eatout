@@ -31,6 +31,7 @@ export interface Business {
   _id: string,
   business_id: string,
   name: string,
+  label?: string,
   address: string,
   city?: string,
   state?: string,

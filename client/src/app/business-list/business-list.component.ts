@@ -26,7 +26,7 @@ export class BusinessListComponent implements OnInit {
 
   @Input()
   set bList(nextList: Business[]) {
-    this._bList = nextList;
+    this._bList = this.cloneJSONArray(nextList);
   }
   get bList() {
     return this._bList;
@@ -36,7 +36,6 @@ export class BusinessListComponent implements OnInit {
 
   setNextBList = () => {
     this.nextBList.emit(this.filteredBList)
-    return this.filteredBList;
   };
 
   pipe = () => {
@@ -50,6 +49,15 @@ export class BusinessListComponent implements OnInit {
         return ( business.name.toLowerCase().includes(token.toLowerCase()) || business.categories.toLowerCase().includes(token.toLowerCase()) )
       }
     );
+  };
+
+  cloneJSONArray = (arr: any[]) => {
+    let newArr: any[] = [];
+    for (let obj of arr) {
+      let newObj = Object.assign({}, obj);
+      newArr.push(newObj);
+    }
+    return newArr;
   };
 
   constructor() { }

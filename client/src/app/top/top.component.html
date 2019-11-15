@@ -14,7 +14,7 @@
 
   <main class="top">
     <ul>
-      <li *ngFor="let top of businessTops; index as i;" class="topList">
+      <li *ngFor="let top of businessTops[currentMode]; index as i;" class="topList">
         <article>
           <header class="rank">
             <div class="circle"><h1>{{ i + 1 }}</h1></div>

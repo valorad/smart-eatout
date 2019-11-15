@@ -7,7 +7,7 @@
           <app-business-list [bList]="businessList" (nextBList)="setNextSearchResult($event)"></app-business-list>
         </lib-tab>
         <lib-tab tabName="top" tabTitle="Top">
-          <app-top [bList]="businessList"></app-top>
+          <app-top [bList]="businessList" (nextTop)="setNextTopResult($event)"></app-top>
         </lib-tab>
         <lib-tab tabTitle="<i class='iconfont icon-lightbulb'></i> Suggest">
           <section class="suggestion">
@@ -44,7 +44,7 @@
      *ngFor="let business of businessShowOnMap"
      [latitude]="business.location.coordinates[1]"
      [longitude]="business.location.coordinates[0]"
-     [label]="business.name[0]"
+     [label]="business.label"
     ></agm-marker>
 
       <!-- <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker> -->
