@@ -14,6 +14,7 @@ import { appRouter } from './app.router';
 
 import * as secrets from "../environments/secrets.json";
 import { TopComponent } from './top/top.component';
+import { GuidanceComponent } from './guidance/guidance.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { TopComponent } from './top/top.component';
     IndexComponent,
     Http404Component,
     BusinessListComponent,
-    TopComponent
+    TopComponent,
+    GuidanceComponent
   ],
   imports: [
     BrowserModule,

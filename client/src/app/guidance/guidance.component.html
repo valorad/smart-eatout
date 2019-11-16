@@ -1,0 +1,14 @@
+<section class="guidance">
+  <ul>
+
+    <li *ngFor="let idea of suggestions; index as i">
+      <article (click)="selectIdea(i)">
+        <picture>
+          <i [class]="'iconfont '+idea.icon"></i>
+        </picture>
+        <p>{{ idea.nameDisplay }}</p>
+      </article>
+    </li>
+
+  </ul>
+</section>

@@ -25,6 +25,7 @@
     "@angular/router": "^8.2.6",
     "bootstrap": "^4.3.1",
     "core-js": "^3.2.1",
+    "micromodal": "^0.4.2",
     "rxjs": "^6.5.3",
     "zone.js": "~0.10.2"
   },

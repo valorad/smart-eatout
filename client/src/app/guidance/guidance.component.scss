@@ -1,0 +1,36 @@
+@import "src/var";
+
+section.guidance {
+  ul {
+    @extend %fCentered;
+    flex-wrap: wrap;
+  }
+
+  li {
+    margin: 0.5em;
+  }
+
+  article {
+    @extend %fCentered;
+    cursor: pointer;
+    flex-wrap: wrap;
+    width: 8em;
+    height: 8em;
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  picture {
+    @extend %fCentered;
+    width: 6em;
+    height: 6em;
+    // border: 1px solid goldenrod;
+    i {
+      font-size: 5em;
+    }
+    img {
+      max-width: 100%;
+    }
+  }
+}
