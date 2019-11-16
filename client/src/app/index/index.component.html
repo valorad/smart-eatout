@@ -2,14 +2,14 @@
   <main class="index">
     
     <section class="panel">
-      <lib-tabs (nextTab)="switchMapView($event)">
+      <lib-tabs [(currentTab)]="currentTab">
         <lib-tab tabName="search" tabTitle="<i class='iconfont icon-search'></i> Search">
           <app-business-list [bList]="businessList" (nextBList)="setNextSearchResult($event)"></app-business-list>
         </lib-tab>
-        <lib-tab tabName="top" tabTitle="Top">
+        <lib-tab tabName="top" tabTitle="<i class='iconfont icon-ranking'></i> Top">
           <app-top [bList]="businessList" (nextTop)="setNextTopResult($event)"></app-top>
         </lib-tab>
-        <lib-tab tabTitle="<i class='iconfont icon-lightbulb'></i> Suggest">
+        <lib-tab tabName="suggest" tabTitle="<i class='iconfont icon-lightbulb'></i> Suggest">
           <section class="suggestion">
             <i class="iconfont icon-lightbulb"></i>
           </section>
@@ -51,4 +51,23 @@
     </agm-map>
 
   </main>
+  <section class="dialogSuggest">
+
+    <div class="modal micromodal-slide" id="modalSuggest" aria-hidden="true">
+      <div class="overlay" tabindex="-1" data-micromodal-close>
+        <div class="container" role="dialog" aria-modal="true" aria-labelledby="modalSuggest-title">
+          <header class="header">
+            <h2 class="title" id="modalSuggest-title">
+              Smart Eatout
+            </h2>
+            <button class="close" aria-label="Close modal" data-micromodal-close></button>
+          </header>
+          <main class="content" id="modalSuggest-content">
+            <app-guidance (nextIdea)="setNextSuggestion($event)"></app-guidance>
+          </main>
+        </div>
+      </div>
+    </div>
+        
+  </section>
 </section>

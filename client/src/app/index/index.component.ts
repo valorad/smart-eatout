@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import MicroModal from 'micromodal';
 
 import { Business } from '../_interfaces/business.interface';
 
@@ -22,6 +23,8 @@ export class IndexComponent implements OnInit {
     timestamp: 0
   } as Position;
 
+  private _currentTab = "search";
+
   businessList: Business[] = [];
 
   businessShowOnMap: Business[] = [];
@@ -31,13 +34,13 @@ export class IndexComponent implements OnInit {
     top: []
   }
 
-  constructor(
-    private businessService: BusinessService
-  ) { }
+  get currentTab() {
+    return this._currentTab;
+  }
 
-  ngOnInit() {
-    this.getCurrentLocation();
-    this.getBusinessList();
+  set currentTab(nextTab: string) {
+    this._currentTab = nextTab;
+    this.nextMapView(nextTab)
   }
 
   getBusinessList = async () => {
@@ -73,6 +76,14 @@ export class IndexComponent implements OnInit {
     }
   };
 
+  nextMapView = (tabName: string) => {
+    if (tabName === "suggest") {
+      this.showDialog("modalSuggest");
+    } else {
+      this.switchMapView(tabName);
+    }
+  }
+
   switchMapView = (key: string) => {
 
     if (this.businessResults[key]) {
@@ -104,5 +115,31 @@ export class IndexComponent implements OnInit {
     });
     
   };
+
+  showDialog = (dialogName: string) => {
+    MicroModal.show(dialogName);
+  };
+
+  closeDialog = (dialogName: string) => {
+    MicroModal.close(dialogName);
+  };
+
+  setNextSuggestion = (ideaTag: string) => {
+    this.closeDialog("modalSuggest");
+    this.currentTab = "search"
+    console.log(ideaTag);
+    
+  };
+
+  constructor(
+    private businessService: BusinessService
+  ) { }
+
+  ngOnInit() {
+    MicroModal.init();
+    this.getCurrentLocation();
+    this.getBusinessList();
+  }
+
 
 }
