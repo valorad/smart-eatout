@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs">
-  <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
+  <li *ngFor="let tab of tabs" (click)="currentTab = tab.name" [class.active]="tab.active">
     <a href="#" [innerHTML]="tab.title"></a>
   </li>
 </ul>

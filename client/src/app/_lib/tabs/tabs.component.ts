@@ -7,9 +7,9 @@ import {
   Component,
   ContentChildren,
   QueryList,
-  AfterContentInit,
   Output,
   EventEmitter,
+  Input,
 } from '@angular/core';
 
 import { TabComponent } from './tab.component';
@@ -19,11 +19,23 @@ import { TabComponent } from './tab.component';
   templateUrl: "./tabs.component.html",
   styleUrls: ["./tabs.component.scss"]
 })
-export class TabsComponent implements AfterContentInit {
+export class TabsComponent {
 
-  @Output() nextTab = new EventEmitter<string>();
+  _currentTab: string;
 
-  
+  @Input()
+  set currentTab(tabName: string) {
+    // console.log(tabName);
+    
+    this._currentTab = tabName;
+    this.selectTab(tabName);
+  }
+  get currentTab() {
+    return this._currentTab;
+  }
+
+  @Output() currentTabChange = new EventEmitter<string>();
+
   @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
   
   // contentChildren are set
@@ -31,20 +43,32 @@ export class TabsComponent implements AfterContentInit {
     // get all active tabs
     let activeTabs = this.tabs.filter((tab)=>tab.active);
     
-    // if there is no active tab set, activate the first
-    if(activeTabs.length === 0) {
-      this.selectTab(this.tabs.first);
+    // // if there is no active tab set, activate the first
+    if (activeTabs.length <= 0) {
+      this.selectTab(this.currentTab || this.tabs.first.name);
     }
   }
   
-  selectTab(tab: any){
-    // deactivate all tabs
-    this.tabs.toArray().forEach(tab => tab.active = false);
+  selectTab(tabName: string){
+    // console.log("selectTab", tabName);
+    // let tab = this.tabs.toArray().find(tab => tab.name === tabName);
     
-    // activate the tab the user has clicked on.
-    tab.active = true;
+    // this.tabs.toArray().forEach(tab => tab.active = false);
+    if (this.tabs) {
+      let tabs = this.tabs.toArray();
+      for (let tab of tabs) {
+        if (tab.name === tabName) {
+          // activate the tab the user has clicked on.
+          tab.active = true;
+        } else {
+          // deactivate all other tabs
+          tab.active = false;
+        }
+      }
+    }
 
-    // emit tab name selected
-    this.nextTab.emit(tab.name)
+    this.currentTabChange.emit(tabName);
+
+
   }
 }
