@@ -6,6 +6,7 @@ import { WeatherInfo } from '../_interfaces/weather.interface';
 
 import { BusinessService } from '../_services/business.service';
 import { WeatherService } from '../_services/weather.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 
 @Component({
@@ -124,16 +125,32 @@ export class IndexComponent implements OnInit {
     }
   };
 
-  getCurrentLocation = () => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      this.currentLocation = pos;
-      this.currentMapView.latitude = pos.coords.latitude;
-      this.currentMapView.longitude = pos.coords.longitude;
+  getCurrentLocation = async () => {
+
+    let routerQuery = await this.getRouteQuery();
+
+    if (routerQuery.lat && routerQuery.lon) {
+
+      (<any>this.currentLocation.coords.latitude) = routerQuery.lat;
+      (<any>this.currentLocation.coords.longitude) = routerQuery.lon;
+
+      this.currentMapView.latitude = routerQuery.lat;
+      this.currentMapView.longitude = routerQuery.lon;
       this.currentMapView.zoom = 12;
       this.getWeather();
       this.getBusinessList();
-    });
-    
+
+    } else {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        this.currentLocation = pos;
+        this.currentMapView.latitude = pos.coords.latitude;
+        this.currentMapView.longitude = pos.coords.longitude;
+        this.currentMapView.zoom = 12;
+        this.getWeather();
+        this.getBusinessList();
+      });
+    }
+
   };
 
   showDialog = (dialogName: string) => {
@@ -156,7 +173,18 @@ export class IndexComponent implements OnInit {
     this.weatherInfo = await this.weatherService.getWeatherByLocation(latitude, longitude);
   };
 
+  getRouteQuery = async () => {
+    return new Promise<Params>((resolve) => {
+      this.route.queryParams.subscribe(
+        (params) => {
+          resolve(params);
+        }
+      );
+    })
+  };
+
   constructor(
+    private route: ActivatedRoute,
     private businessService: BusinessService,
     private weatherService: WeatherService
   ) { }
