@@ -20,9 +20,11 @@
 
     <section class="weather">
       <div class="icon">
-        <picture [title]="weatherInfo?.weather[0]?.description">
-          <img src="https://openweathermap.org/img/wn/{{ weatherInfo?.weather[0]?.icon }}@2x.png" [alt]="weatherInfo?.weather?.description" class="fluid">
-        </picture>
+        <div *ngIf="weatherInfo">
+          <picture *ngFor="let w of weatherInfo.weather" [title]="w.description">
+            <img src="https://openweathermap.org/img/wn/{{ w.icon }}@2x.png" [alt]="w.description" class="fluid">
+          </picture>
+        </div>
       </div>
       <div class="info">
         <h1> <span> {{ weatherInfo.main.temp | number:'1.0-0' }} </span> °C</h1>

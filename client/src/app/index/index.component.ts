@@ -40,7 +40,7 @@ export class IndexComponent implements OnInit {
 
   weatherInfo = {
     main: {},
-    weather: {}
+    weather: []
   } as WeatherInfo;
 
   get currentTab() {
@@ -83,11 +83,12 @@ export class IndexComponent implements OnInit {
       bList[i].label = (i + 1).toString();
     }
     
-    this.setBusinessResult("top", bList, false);
+    this.setBusinessResult("top", bList, this.currentTab === "top");
   }
 
   setBusinessResult = (key: string, newList: Business[], showOnMap = true) => {
-    this.businessResults[key] = newList.slice(0);
+    this.businessResults[key] = [];
+    this.businessResults[key] = newList;
     if (showOnMap) {
       this.switchMapView(key);
     }
@@ -130,6 +131,7 @@ export class IndexComponent implements OnInit {
       this.currentMapView.longitude = pos.coords.longitude;
       this.currentMapView.zoom = 12;
       this.getWeather();
+      this.getBusinessList();
     });
     
   };

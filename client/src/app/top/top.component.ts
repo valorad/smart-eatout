@@ -57,6 +57,7 @@ export class TopComponent {
 
   selectMode = async (nextMode: string) => {
     this.currentMode = nextMode;
+
     switch (nextMode) {
       case "allTime":
         this.getAllTimeTops(10);
@@ -68,6 +69,7 @@ export class TopComponent {
         console.log(`invalid mode ${nextMode}`);
         break;
     }
+    
     this.nextTop.emit(this.businessTops[nextMode] || [])
   };
 
@@ -93,7 +95,7 @@ export class TopComponent {
   getRecentTops = async (top: number) => {
     let startDate = new Date("2018-11-01");
     let endDate = new Date("2018-12-01");
-    console.log(this.extractBIDs());
+
     let topResults = await this.topService.getTop(this.extractBIDs(), startDate, endDate);
 
     // insert the avg star info to the complete corresponding business data

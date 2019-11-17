@@ -14,8 +14,6 @@ export class BusinessListComponent implements OnInit {
 
   private _searchTerm = "";
 
-
-
   @Input()
   set searchTerm(value: string) {
     this._searchTerm = value;
@@ -45,6 +43,7 @@ export class BusinessListComponent implements OnInit {
   };
 
   pipe = () => {
+    
     this.filteredBList = this.filterByNameOrTag(this.searchTerm);
   };
 
@@ -52,7 +51,9 @@ export class BusinessListComponent implements OnInit {
 
     return this.bList.filter(
       (business) => {
-        return ( business.name.toLowerCase().includes(token.toLowerCase()) || business.categories.toLowerCase().includes(token.toLowerCase()) )
+        return (
+          business.name.toLowerCase().includes(token.toLowerCase()) ||
+          business.categories.toLowerCase().includes(token.toLowerCase()) )
       }
     );
   };
