@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import MicroModal from 'micromodal';
 
 import { Business } from '../_interfaces/business.interface';
+import { WeatherInfo } from '../_interfaces/weather.interface';
 
 import { BusinessService } from '../_services/business.service';
+import { WeatherService } from '../_services/weather.service';
+
 
 @Component({
   selector: 'app-index',
@@ -34,6 +37,11 @@ export class IndexComponent implements OnInit {
     search: [],
     top: []
   }
+
+  weatherInfo = {
+    main: {},
+    weather: {}
+  } as WeatherInfo;
 
   get currentTab() {
     return this._currentTab;
@@ -121,6 +129,7 @@ export class IndexComponent implements OnInit {
       this.currentMapView.latitude = pos.coords.latitude;
       this.currentMapView.longitude = pos.coords.longitude;
       this.currentMapView.zoom = 12;
+      this.getWeather();
     });
     
   };
@@ -139,14 +148,22 @@ export class IndexComponent implements OnInit {
     this.blistSearchTerm = ideaTag;
   };
 
+  getWeather = async () => {
+    let latitude = this.currentLocation.coords.latitude || this.currentMapView.latitude;
+    let longitude = this.currentLocation.coords.longitude || this.currentMapView.longitude;
+    this.weatherInfo = await this.weatherService.getWeatherByLocation(latitude, longitude);
+  };
+
   constructor(
-    private businessService: BusinessService
+    private businessService: BusinessService,
+    private weatherService: WeatherService
   ) { }
 
   ngOnInit() {
     MicroModal.init();
     this.getCurrentLocation();
     this.getBusinessList();
+    this.getWeather();
   }
 
 

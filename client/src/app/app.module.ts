@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -29,6 +30,7 @@ import { GuidanceComponent } from './guidance/guidance.component';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
 
     AgmCoreModule.forRoot({
       apiKey: secrets.mapKey

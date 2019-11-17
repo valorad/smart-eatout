@@ -20,13 +20,13 @@
 
     <section class="weather">
       <div class="icon">
-        <picture>
-          <img src="../../assets/02d@2x.png" alt="test" class="fluid">
+        <picture [title]="weatherInfo?.weather[0]?.description">
+          <img src="https://openweathermap.org/img/wn/{{ weatherInfo?.weather[0]?.icon }}@2x.png" [alt]="weatherInfo?.weather?.description" class="fluid">
         </picture>
       </div>
       <div class="info">
-        <h1>-5 °C</h1>
-        <h2>in Montreal</h2>
+        <h1> <span> {{ weatherInfo.main.temp | number:'1.0-0' }} </span> °C</h1>
+        <h2>in {{ weatherInfo.name }} </h2>
       </div>
 
     </section>
