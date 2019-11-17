@@ -24,6 +24,7 @@ export class IndexComponent implements OnInit {
   } as Position;
 
   private _currentTab = "search";
+  private _blistSearchTerm = "";
 
   businessList: Business[] = [];
 
@@ -41,6 +42,14 @@ export class IndexComponent implements OnInit {
   set currentTab(nextTab: string) {
     this._currentTab = nextTab;
     this.nextMapView(nextTab)
+  }
+
+  get blistSearchTerm() {
+    return this._blistSearchTerm;
+  }
+
+  set blistSearchTerm(nextTerm: string) {
+    this._blistSearchTerm = nextTerm;
   }
 
   getBusinessList = async () => {
@@ -126,9 +135,8 @@ export class IndexComponent implements OnInit {
 
   setNextSuggestion = (ideaTag: string) => {
     this.closeDialog("modalSuggest");
-    this.currentTab = "search"
-    console.log(ideaTag);
-    
+    this.currentTab = "search";
+    this.blistSearchTerm = ideaTag;
   };
 
   constructor(

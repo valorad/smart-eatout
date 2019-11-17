@@ -14,14 +14,18 @@ export class BusinessListComponent implements OnInit {
 
   private _searchTerm = "";
 
-  get searchTerm() {
-    return this._searchTerm;
-  }
 
+
+  @Input()
   set searchTerm(value: string) {
     this._searchTerm = value;
     this.pipe();
     this.setNextBList();
+    this.searchTermChange.emit(this.searchTerm);
+  }
+
+  get searchTerm() {
+    return this._searchTerm;
   }
 
   @Input()
@@ -31,6 +35,8 @@ export class BusinessListComponent implements OnInit {
   get bList() {
     return this._bList;
   }
+
+  @Output() searchTermChange = new EventEmitter<string>();
 
   @Output() nextBList = new EventEmitter<Business[]>();
 

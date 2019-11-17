@@ -4,7 +4,7 @@
     <section class="panel">
       <lib-tabs [(currentTab)]="currentTab">
         <lib-tab tabName="search" tabTitle="<i class='iconfont icon-search'></i> Search">
-          <app-business-list [bList]="businessList" (nextBList)="setNextSearchResult($event)"></app-business-list>
+          <app-business-list [bList]="businessList" (nextBList)="setNextSearchResult($event)" [(searchTerm)]="blistSearchTerm"></app-business-list>
         </lib-tab>
         <lib-tab tabName="top" tabTitle="<i class='iconfont icon-ranking'></i> Top">
           <app-top [bList]="businessList" (nextTop)="setNextTopResult($event)"></app-top>

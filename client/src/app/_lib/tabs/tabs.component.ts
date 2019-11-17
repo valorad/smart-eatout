@@ -25,7 +25,6 @@ export class TabsComponent {
 
   @Input()
   set currentTab(tabName: string) {
-    // console.log(tabName);
     
     this._currentTab = tabName;
     this.selectTab(tabName);
@@ -50,10 +49,7 @@ export class TabsComponent {
   }
   
   selectTab(tabName: string){
-    // console.log("selectTab", tabName);
-    // let tab = this.tabs.toArray().find(tab => tab.name === tabName);
-    
-    // this.tabs.toArray().forEach(tab => tab.active = false);
+
     if (this.tabs) {
       let tabs = this.tabs.toArray();
       for (let tab of tabs) {
