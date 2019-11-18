@@ -18,6 +18,8 @@ class TopsRoute {
     // });
 
     this.router.get('/:businessIDs', async (ctx) => {
+
+      ctx.request.socket.setTimeout(5 * 60 * 1000); 
       
       let businessIDs: string[] = ctx.params.businessIDs.split(",");
       // remove empty strings

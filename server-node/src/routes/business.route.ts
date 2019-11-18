@@ -18,6 +18,9 @@ class BusinessRoute {
     });
 
     this.router.get('/location/:coordinates', async (ctx) => {
+
+      ctx.request.socket.setTimeout(5 * 60 * 1000); 
+
       let coordinates = ctx.params.coordinates.split(",") as any[];
 
       coordinates = coordinates.map((coor: string) => parseFloat(coor)) as number[];
