@@ -9,7 +9,7 @@ The users routes
 
 ## By Condition [/api/users/{?query}{?_condition_}]
 
-Get user list by condition. 
+Get user list by the condition. 
 Returns the first 10 user objects if no query or _condition_ provided
 
 ### Get user list by condition [GET]
@@ -19,10 +19,10 @@ Returns the first 10 user objects if no query or _condition_ provided
 
         Query object. Including Mongo query token and Mongo query options.
 
-        Front-end needs to first encode the json to string before calling this API.
+        Front-end needs to first encode the JSON to string before calling this API.
         e.g. in JavaScript, call `encodeURIComponent()`
 
-        You also need to convert a Date object to **Miliseconds** if you need to query date later than or earlier than.
+        You also need to convert a Date object to **Milliseconds** if you need to query date later than or earlier than.
         e.g. in JavaScript, call `getTime()` on a Date object.
 
         Query structure: 
@@ -55,12 +55,12 @@ Returns the first 10 user objects if no query or _condition_ provided
         ```
 
         returns all the users that have given no less than 1000 reviews
-        , and order the result by "useful" field, in descend order
+        , and order the result by "useful" field, in descending order
 
 
     + _condition_ (optional, string)
 
-        The faster way to perform a query. Will be ignored if "query" parameter is provided.
+        The faster way to perform a query. It will be ignored if "query" parameter is provided.
 
         _condition_ could be any string that acts as the key to the Mongo query token.
         Does not support Mongo atomic operations (such as $gte, $lt, etc.)
@@ -140,7 +140,7 @@ The business routes
 
 ## By Condition [/api/business/{?query}{?_condition_}]
 
-Get business list by condition. 
+Get business list by the condition. 
 Returns the first 10 business objects if no query or _condition_ provided
 
 ### Get business list by condition [GET]
@@ -150,7 +150,7 @@ Returns the first 10 business objects if no query or _condition_ provided
 
         Query object. Including Mongo query token and Mongo query options.
 
-        Front-end needs to first encode the json to string before calling this API.
+        Front-end needs to first encode the JSON to string before calling this API.
         e.g. in JavaScript, call `encodeURIComponent()`
 
         Query structure: 
@@ -187,7 +187,7 @@ Returns the first 10 business objects if no query or _condition_ provided
 
     + _condition_ (optional, string)
 
-        The faster way to perform a query. Will be ignored if "query" parameter is provided.
+        The faster way to perform a query. It will be ignored if "query" parameter is provided.
 
         _condition_ could be any string that acts as the key to the Mongo query token.
         Does not support Mongo atomic operations (such as $gte, $lt, etc.)
@@ -291,12 +291,12 @@ Returns the first 10 business objects if no query or _condition_ provided
 
 ### Get business list by location [GET]
 
-Get business list based on the point coordinates provided. Default result limit is 100.
+Get the business list based on the point coordinates provided. The default result limit is 100.
 
 + Parameters
     + coordinates (required, string)
         One pair of geo coordinate to start searching.
-        Provide the **longitude** first and then **latitude**. Seperate by comma.
+        Provide the **longitude** first and then **latitude**. Separate by commas.
         E.g. -120.334455,40.996551
 
     + range (optional, string)
@@ -391,14 +391,14 @@ Get top list by IDs. Note that the final result may not include all the IDs prov
 
 + Parameters
     + businessIDs (required, string)
-        The business IDs involved to compete and generate the top results. Seperate by comma.
+        The business IDs involved to compete and generate the top results. Separate by commas.
         E.g. QXAEGFB4oINsVuTFxEYKFQ,-K4gAv8_vjx8-2BxkVeRkA,5JucpCfHZltJh5r1JabjDg
 
     + startDate (optional, string)
-        The beginning of the search period. In a valid date string . e.g. 2019-01-01
+        The beginning of the search period. In a valid date string. e.g. 2019-01-01
 
     + endDate (optional, string)
-        The end of the search period. In a valid date string . e.g. 2019-02-28
+        The end of the search period. In a valid date string. e.g. 2019-02-28
         
 
 + Response 200 (application/json)
